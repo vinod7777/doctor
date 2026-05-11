@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Settings - HealthPortal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3A86FF",
+                        "secondary": "#2EC4B6",
+                        "accent": "#FF9F1C",
+                        "neutral-text": "#212529",
+                        "neutral-subtext": "#6C757D",
+                        "background-light": "#F8F9FA",
+                        "background-dark": "#101922",
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#1A2836",
+                        "border-light": "#E9ECEF",
+                        "border-dark": "#2C3A48",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+    <div class="flex h-screen w-full">
+        <!-- SideNavBar -->
+        <aside class="w-64 flex-shrink-0 bg-white dark:bg-neutral-900/50 p-4 flex flex-col justify-between border-r border-slate-200 dark:border-slate-800">
+            <div class="flex flex-col gap-4">
+                <div class="flex gap-3 items-center">
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="A portrait of Dr. Evelyn Reed" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDCHYu1xXSGN77eyEWcPGDm-XO83FkhhdwS6q5ZXQwHgnV9ebizfr8w0KYJ3ipeLweWILdBgPYWHgl2OUdK6wuke6-DPp5ht6bqG1-kjbrM3IgxTWNIffBSHxCw8bfjNI37y74KMzdHkcqk43oCG3Qs23I-m8IeQ5bhrUjY5KG6rCF_8zKfvhJ38SBenMM2ZMpqX7CpDZftj1KCTEDUeAWswsFVJ7w83YbEIdoqZwwdqZV88V2yqP05xFFxpnLFVO6jLShoVpP3Fdo");'></div>
+                    <div class="flex flex-col">
+                        <h1 id="doctor-name" class="text-neutral-text dark:text-slate-100 text-base font-medium leading-normal">Loading...</h1>
+                        <p class="text-neutral-subtext dark:text-slate-400 text-sm font-normal leading-normal">Doctor</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2 mt-6">
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral-subtext dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="Doctor_dashboard.html">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <p class="text-sm font-medium leading-normal">Dashboard</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral-subtext dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="Patient_Records_Management_doctor.html">
+                        <span class="material-symbols-outlined">group</span>
+                        <p class="text-sm font-medium leading-normal">Patients</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral-subtext dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="Consultation_History_doctor.html">
+                        <span class="material-symbols-outlined">history</span>
+                        <p class="text-sm font-medium leading-normal">History</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary" href="Doctor_settings.html">
+                        <span class="material-symbols-outlined">settings</span>
+                        <p class="text-sm font-medium leading-normal">Settings</p>
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-col gap-1">
+                <a id="logout-button" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral-subtext dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="Doctor_login.html">
+                    <span class="material-symbols-outlined">logout</span>
+                    <p class="text-sm font-medium leading-normal">Logout</p>
+                </a>
+            </div>
+        </aside>
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-y-auto">
+            <div class="p-8">
+                <!-- PageHeading -->
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold tracking-tight text-neutral-text dark:text-slate-100">Profile Settings</h1>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Manage your personal and professional information.</p>
+                </div>
+
+                <!-- Settings Form -->
+                <div class="max-w-2xl bg-card-light dark:bg-card-dark p-6 rounded-lg border border-border-light dark:border-border-dark">
+                    <form id="doctor-settings-form" class="space-y-6">
+                        <!-- Message Display -->
+                        <div id="message-display" class="hidden p-3 rounded-lg text-sm"></div>
+
+                        <!-- Full Name -->
+                        <div>
+                            <label for="full-name" class="block text-sm font-medium mb-1.5 text-neutral-text dark:text-slate-200">Full Name</label>
+                            <input type="text" id="full-name" class="form-input h-10 w-full rounded-lg border border-border-light bg-background-light dark:border-border-dark dark:bg-background-dark placeholder:text-slate-500 focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="e.g., Dr. John Doe" required>
+                        </div>
+
+                        <!-- Email Address (Read-only) -->
+                        <div>
+                            <label for="email" class="block text-sm font-medium mb-1.5 text-neutral-text dark:text-slate-200">Email Address</label>
+                            <input type="email" id="email" class="form-input h-10 w-full rounded-lg border border-border-light bg-slate-100 dark:border-border-dark dark:bg-slate-800/50 cursor-not-allowed" placeholder="email@example.com" readonly>
+                        </div>
+
+                        <!-- Medical License Number -->
+                        <div>
+                            <label for="license-number" class="block text-sm font-medium mb-1.5 text-neutral-text dark:text-slate-200">Medical License Number</label>
+                            <input type="text" id="license-number" class="form-input h-10 w-full rounded-lg border border-border-light bg-background-light dark:border-border-dark dark:bg-background-dark placeholder:text-slate-500 focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="Enter your license number" required>
+                        </div>
+
+                        <!-- Specialization -->
+                        <div>
+                            <label for="specialization" class="block text-sm font-medium mb-1.5 text-neutral-text dark:text-slate-200">Specialization</label>
+                            <input type="text" id="specialization" class="form-input h-10 w-full rounded-lg border border-border-light bg-background-light dark:border-border-dark dark:bg-background-dark placeholder:text-slate-500 focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="e.g., Cardiology, Dermatology">
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="pt-4">
+                            <button type="submit" class="flex h-10 min-w-[120px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg bg-primary px-5 text-sm font-bold text-white hover:bg-primary/90">
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script type="module" src="firebase_config.js"></script>
+    <script type="module" src="doctor_settings.js"></script>
+</body>
+
+</html>

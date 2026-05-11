@@ -1,0 +1,133 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthConsult - Video Call</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #root {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="root"></div>
+</body>
+<!-- Import Firebase and ZegoUIKit -->
+<script type="module" src="firebase_config.js"></script>
+<script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
+<script type="module">
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+    import { app } from './firebase_config.js';
+
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Show a loading indicator
+    document.getElementById('root').innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100%;font-family:sans-serif;color:grey;">Loading Video Session...</div>';
+
+    onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+            // If no user, redirect based on role if possible, or to a generic login
+            const params = new URLSearchParams(window.location.search);
+            const role = params.get('role');
+            window.location.href = role === 'Host' ? 'Doctor_login.html' : 'Patient_login.html';
+            return;
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const roomID = params.get('roomID');
+        const role = params.get('role') || 'Participant'; // Default to patient/participant
+
+        if (!roomID) {
+            document.getElementById('root').innerText = "Error: No Room ID provided.";
+            return;
+        }
+
+        // Get user's name from Firestore
+        const collectionName = role === 'Host' ? 'doctors' : 'patients';
+        const userDocRef = doc(db, collectionName, user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        const userName = userDocSnap.exists() ? userDocSnap.data().fullName : `User ${user.uid.substring(0, 5)}`;
+
+        // Update the appointment to reflect that the user has joined the call.
+        // The roomID is the same as the appointmentId.
+        if (roomID) {
+            try {
+                const appointmentRef = doc(db, "appointments", roomID);
+                const appointmentSnap = await getDoc(appointmentRef);
+                const appointmentData = appointmentSnap.data();
+
+                if (role === 'Participant') {
+                    await updateDoc(appointmentRef, { patientJoined: true });
+                    // If doctor has already joined, mark as completed
+                    if (appointmentData.doctorJoined) {
+                        await updateDoc(appointmentRef, { status: 'completed' });
+                    }
+                } else if (role === 'Host') {
+                    await updateDoc(appointmentRef, { doctorJoined: true });
+                    // If patient has already joined, mark as completed
+                    if (appointmentData.patientJoined) {
+                        await updateDoc(appointmentRef, { status: 'completed' });
+                    }
+                }
+            } catch (error) { console.error("Error updating joined status:", error); }
+        }
+        // --- INSECURE: For testing purposes only ---
+        // Your serverSecret should NEVER be exposed on the client-side in a real application.
+        // This token generation should happen on a server to keep your secret key safe.
+        const appID = 625892926;
+        const serverSecret = "87601dc79d96b08459cad55b49f0f3b0";
+        const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
+            appID,
+            serverSecret,
+            roomID,
+            user.uid,
+            userName
+        );
+
+        // Create ZegoUIKit instance
+        const zp = ZegoUIKitPrebuilt.create(kitToken);
+
+        // Join the room with the specified configuration
+        zp.joinRoom({
+            container: document.querySelector("#root"),
+            sharedLinks: [{
+                name: 'Personal link',
+                url: `${window.location.protocol}//${window.location.host}${window.location.pathname}?roomID=${roomID}`,
+            }],
+            scenario: {
+                mode: ZegoUIKitPrebuilt.OneONoneCall,
+                config: {
+                    role: role,
+                },
+            },
+            turnOnMicrophoneWhenJoining: true,
+            turnOnCameraWhenJoining: true,
+            showMyCameraToggleButton: true,
+            showMyMicrophoneToggleButton: true,
+            showAudioVideoSettingsButton: true,
+            showScreenSharingButton: true,
+            showTextChat: true,
+            showUserList: true,
+            maxUsers: 2,
+            layout: "Auto",
+            showLayoutButton: false,
+            onLeaveRoom: () => {
+                // Redirect user after leaving the call
+                window.location.href = role === 'Host' ? 'Doctor_dashboard.html' : 'Patient_dashboard.html';
+            }
+        });
+    });
+</script>
+
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HealthConsult - Consultation History</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3A86FF",
+                        "secondary": "#2EC4B6",
+                        "accent": "#FF9F1C",
+                        "neutral-text": "#212529",
+                        "neutral-subtext": "#6C757D",
+                        "background-light": "#F8F9FA",
+                        "background-dark": "#101922",
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#1A2836",
+                        "border-light": "#E9ECEF",
+                        "border-dark": "#2C3A48",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="flex h-screen w-full">
+<!-- SideNavBar -->
+<aside class="w-64 flex-shrink-0 bg-white dark:bg-neutral-900/50 p-4 flex flex-col justify-between border-r border-slate-200 dark:border-slate-800">
+<div class="flex flex-col gap-4">
+<div class="flex gap-3 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="A portrait of Dr. Evelyn Reed" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDCHYu1xXSGN77eyEWcPGDm-XO83FkhhdwS6q5ZXQwHgnV9ebizfr8w0KYJ3ipeLweWILdBgPYWHgl2OUdK6wuke6-DPp5ht6bqG1-kjbrM3IgxTWNIffBSHxCw8bfjNI37y74KMzdHkcqk43oCG3Qs23I-m8IeQ5bhrUjY5KG6rCF_8zKfvhJ38SBenMM2ZMpqX7CpDZftj1KCTEDUeAWswsFVJ7w83YbEIdoqZwwdqZV88V2yqP05xFFxpnLFVO6jLShoVpP3Fdo");'></div>
+<div class="flex flex-col">
+<h1 id="doctor-name" class="text-neutral-text dark:text-slate-100 text-base font-medium leading-normal">Loading...</h1>
+<p class="text-neutral-subtext dark:text-slate-400 text-sm font-normal leading-normal">Doctor</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 mt-6">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral-subtext dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="Doctor_dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral-subtext dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="Patient_Records_Management_doctor.html">
+<span class="material-symbols-outlined">group</span>
+<p class="text-sm font-medium leading-normal">Patients</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary" href="Consultation_History_doctor.html">
+<span class="material-symbols-outlined">history</span>
+<p class="text-sm font-medium leading-normal">History</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral-subtext dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="Doctor_settings.html">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<a id="logout-button" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral-subtext dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined">logout</span>
+<p class="text-sm font-medium leading-normal">Logout</p>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-y-auto">
+<div class="px-4 sm:px-6 lg:px-8 py-8">
+<div class="mx-auto max-w-7xl">
+<div class="flex flex-wrap justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800 mb-6">
+<div class="flex min-w-72 flex-col gap-1">
+<p class="text-slate-900 dark:text-white text-3xl font-bold leading-tight tracking-[-0.03em]">Consultation History</p>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal">Review past consultations, notes, and prescriptions.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Left Column: Consultation List -->
+<div class="lg:col-span-1 flex flex-col gap-4">
+<div class="flex flex-col gap-4 p-4 rounded-xl bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800">
+<label class="flex flex-col min-w-40 h-12 w-full">
+    <div class="relative flex w-full items-stretch">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">search</span>
+        <input id="search-input" class="form-input h-10 w-full flex-1 rounded-lg border border-border-light bg-card-light dark:border-border-dark dark:bg-card-dark pl-10 text-sm placeholder:text-slate-500 focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="Search by patient name..." value="" />
+    </div>
+</label>
+<div class="flex gap-2 flex-wrap">
+    <select id="date-filter" class="form-select h-9 appearance-none rounded-lg border border-border-light bg-card-light dark:border-border-dark dark:bg-card-dark px-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20">
+        <option value="all">All Dates</option>
+        <option value="7">Last 7 Days</option>
+        <option value="30">Last 30 Days</option>
+    </select>
+    <select id="type-filter" class="form-select h-9 appearance-none rounded-lg border border-border-light bg-card-light dark:border-border-dark dark:bg-card-dark px-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20">
+        <option value="all">All Types</option>
+        <option value="Video Call">Video Call</option>
+        <option value="Chat">Chat</option>
+    </select>
+</div>
+<!-- Consultation List Container -->
+<div id="consultation-list-container" class="flex flex-col divide-y divide-slate-200 dark:divide-slate-800 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark">
+    <!-- Template for list items -->
+    <div id="consultation-item-template" class="consultation-item flex gap-4 p-4 justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer" style="display: none;">
+        <div class="flex items-start gap-4">
+            <div class="list-patient-avatar bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 shrink-0"></div>
+            <div class="flex flex-1 flex-col justify-center gap-1">
+                <p class="list-patient-name text-slate-900 dark:text-white text-base font-semibold leading-normal">Patient Name</p>
+                <p class="list-patient-complaint text-slate-600 dark:text-slate-300 text-sm font-normal leading-normal">Chief Complaint...</p>
+                <p class="list-patient-details text-slate-500 dark:text-slate-400 text-xs font-normal leading-normal">ID and Date</p>
+            </div>
+        </div>
+    </div>
+    <!-- No History Message -->
+    <div id="no-history-message" class="p-6 text-center text-slate-500 dark:text-slate-400" style="display: none;">
+        No consultation history found.
+    </div>
+</div>
+</div>
+</div>
+<!-- Right Column: Detailed View -->
+<div id="detailed-view-container" class="lg:col-span-2 flex flex-col gap-6">
+<div class="bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden" style="display: flex; flex-direction: column;">
+<div class="p-6 border-b border-slate-200 dark:border-slate-800 flex flex-wrap gap-4 items-center justify-between">
+<div class="flex items-center gap-4">
+<div id="detail-patient-avatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-16"></div>
+<div>
+<h3 id="detail-patient-name" class="text-xl font-bold text-slate-900 dark:text-white">Patient Name</h3>
+<p id="detail-patient-info" class="text-slate-500 dark:text-slate-400">Age, Gender</p>
+</div>
+</div>
+<div class="flex gap-2">
+    <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-bold leading-normal tracking-[0.015em] gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+        <span class="material-symbols-outlined text-base">download</span>
+        <span>Download Report</span>
+    </button>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="border-b border-slate-200 dark:border-slate-800">
+<nav id="detail-tabs" class="flex gap-6 -mb-px px-6">
+<a id="tab-consultation-details" class="history-tab py-4 px-1 inline-flex items-center gap-2 text-sm whitespace-nowrap text-primary border-b-2 border-primary font-semibold" href="#">Consultation Details</a>
+<a id="tab-patient-history" class="history-tab py-4 px-1 inline-flex items-center gap-2 text-sm whitespace-nowrap text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary border-b-2 border-transparent" href="#">Patient History</a>
+<a id="tab-prescriptions" class="history-tab py-4 px-1 inline-flex items-center gap-2 text-sm whitespace-nowrap text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary border-b-2 border-transparent" href="#">Prescriptions</a>
+<a id="tab-lab-reports" class="history-tab py-4 px-1 inline-flex items-center gap-2 text-sm whitespace-nowrap text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary border-b-2 border-transparent" href="#">Lab Reports</a>
+</nav>
+</div>
+<!-- Consultation Details Panel -->
+<div id="panel-consultation-details" class="detail-panel p-6 flex-col gap-6">
+    <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+        <h4 class="font-semibold text-slate-800 dark:text-slate-200 mb-2">Patient's Reported Symptoms</h4>
+        <p id="detail-symptoms" class="text-slate-600 dark:text-slate-300 text-sm">Loading...</p>
+    </div>
+    <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+        <h4 class="font-semibold text-slate-800 dark:text-slate-200 mb-2">Doctor's Diagnostic Notes</h4>
+        <p id="detail-diagnosis" class="text-slate-600 dark:text-slate-300 text-sm">Loading...</p>
+    </div>
+    <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+        <h4 class="font-semibold text-slate-800 dark:text-slate-200 mb-2">Treatment Plan</h4>
+        <p id="detail-treatment" class="text-slate-600 dark:text-slate-300 text-sm">Loading...</p>
+    </div>
+    <div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+        <h4 class="font-semibold text-slate-800 dark:text-slate-200 mb-2">Follow-up Advice</h4>
+        <p id="detail-follow-up" class="text-slate-600 dark:text-slate-300 text-sm">Loading...</p>
+    </div>
+</div>
+<!-- Patient History Panel -->
+<div id="panel-patient-history" class="detail-panel p-6 flex-col gap-4 hidden">
+    <!-- Patient history items will be injected here -->
+</div>
+<!-- Prescriptions Panel -->
+<div id="panel-prescriptions" class="detail-panel p-6 flex-col gap-4 hidden">
+    <!-- Prescription items will be injected here -->
+</div>
+<!-- Lab Reports Panel -->
+<div id="panel-lab-reports" class="detail-panel p-6 flex-col gap-4 hidden">
+    <!-- Lab report items will be injected here -->
+</div>
+<!-- Template for document items (Prescriptions/Lab Reports) -->
+<template id="document-item-template">
+    <a href="#" target="_blank" class="document-link flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700">
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-secondary">description</span>
+            <div>
+                <p class="document-name font-semibold text-sm">Document Name</p>
+                <p class="document-date text-xs text-slate-500 dark:text-slate-400">Uploaded on Date</p>
+            </div>
+        </div>
+        <span class="material-symbols-outlined text-lg">open_in_new</span>
+    </a>
+</template>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+<!-- Firebase Scripts -->
+<script type="module" src="firebase_config.js"></script>
+<script type="module" src="consultation_history.js"></script>
+</body></html>

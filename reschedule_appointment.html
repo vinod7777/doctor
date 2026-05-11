@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Reschedule Appointment - HealthPortal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4A90E2",
+                        "secondary": "#50E3C2",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#1A2836",
+                        "border-light": "#E9ECEF",
+                        "border-dark": "#2C3A48",
+                        "text-light-primary": "#212529",
+                        "text-light-secondary": "#6C757D",
+                        "text-dark-primary": "#F4F7FA",
+                        "text-dark-secondary": "#9DA7B2",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light-primary dark:text-dark-primary">
+    <div class="relative flex h-auto min-h-screen w-full flex-col">
+        <header class="sticky top-0 z-40 w-full border-b border-border-light dark:border-border-dark bg-card-light/80 dark:bg-card-dark/80 backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="flex h-16 items-center justify-between">
+                    <a id="app-logo-link" href="index.html" class="flex items-center gap-2 text-primary cursor-pointer">
+                        <span class="material-symbols-outlined text-3xl">health_and_safety</span>
+                        <h2 class="text-xl font-bold leading-tight">HealthPortal</h2>
+                    </a>
+                    <a href="My_Appointments_patient.html" class="flex items-center gap-2 text-sm font-semibold text-text-light-secondary dark:text-dark-secondary hover:text-primary">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                        Back to Appointments
+                    </a>
+                </div>
+            </div>
+        </header>
+        <main class="flex-grow">
+            <div class="container mx-auto px-4 py-8">
+                <div class="max-w-2xl mx-auto bg-card-light dark:bg-card-dark rounded-xl shadow-md border border-border-light dark:border-border-dark p-6 md:p-8">
+                    <!-- Page Heading -->
+                    <div class="mb-6">
+                        <h1 class="text-3xl font-bold">Reschedule Appointment</h1>
+                        <p class="text-text-light-secondary dark:text-dark-secondary mt-1">Select a new date and time for your consultation.</p>
+                    </div>
+
+                    <!-- Loading/Error State -->
+                    <div id="message-area" class="text-center p-4"></div>
+
+                    <!-- Main Content - Hidden until data is loaded -->
+                    <div id="reschedule-content" class="hidden space-y-6">
+                        <!-- Doctor Info -->
+                        <div class="flex items-center gap-4 p-4 rounded-lg bg-background-light dark:bg-background-dark">
+                            <div id="doctor-avatar" class="size-16 rounded-full bg-cover bg-center flex-shrink-0"></div>
+                            <div>
+                                <h3 id="doctor-name" class="text-lg font-bold">Doctor Name</h3>
+                                <p id="doctor-specialization" class="text-sm text-primary font-medium">Specialization</p>
+                            </div>
+                        </div>
+
+                        <!-- Current Appointment Info -->
+                        <div class="p-4 rounded-lg border border-border-light dark:border-border-dark">
+                            <h4 class="text-sm font-medium text-text-light-secondary dark:text-dark-secondary">Current Appointment</h4>
+                            <p id="current-appointment-time" class="font-semibold text-lg">Loading...</p>
+                        </div>
+
+                        <!-- Date Picker -->
+                        <div>
+                            <label for="appointment-date" class="block text-sm font-medium mb-1.5">Select New Date</label>
+                            <input type="date" id="appointment-date" class="w-full h-10 px-3 rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary">
+                        </div>
+
+                        <!-- Time Slots -->
+                        <div id="time-input-container" class="hidden">
+                            <label for="appointment-time" class="block text-sm font-medium mb-1.5">Select New Time</label>
+                            <input type="time" id="appointment-time" class="w-full h-10 px-3 rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary">
+                            <p class="text-xs text-text-light-secondary dark:text-dark-secondary mt-1.5">Note: The doctor's availability for this exact time will be confirmed upon review.</p>
+                        </div>
+
+                        <!-- Confirmation Button -->
+                        <div class="pt-4 flex flex-col sm:flex-row gap-3">
+                            <button id="confirm-reschedule-btn" class="w-full sm:w-auto flex-grow h-12 bg-secondary text-white font-bold rounded-lg hover:bg-secondary/90 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed">
+                                Confirm Reschedule
+                            </button>
+                            <a href="My_Appointments_patient.html" class="w-full sm:w-auto h-12 flex items-center justify-center px-6 bg-gray-200 dark:bg-gray-700 text-text-light-primary dark:text-dark-primary font-bold rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                                Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script type="module" src="firebase_config.js"></script>
+    <script type="module" src="reschedule_appointment.js"></script>
+</body>
+
+</html>

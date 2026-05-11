@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HealthPortal - Online Health Consultation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#4A90E2",
+            "secondary": "#7ED321",
+            "accent": "#FF6B6B",
+            "background-light": "#F4F7F9",
+            "background-dark": "#101922",
+            "text-light-primary": "#333333",
+            "text-light-secondary": "#555555",
+            "text-dark-primary": "#E0E0E0",
+            "text-dark-secondary": "#A0A0A0",
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light-primary dark:text-dark-primary">
+<div class="relative flex min-h-screen w-full flex-col">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 flex items-center justify-center border-b border-gray-200/50 dark:border-gray-700/50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+<div class="flex items-center justify-between whitespace-nowrap px-4 sm:px-6 lg:px-8 py-3 w-full max-w-7xl">
+<div class="flex items-center gap-4 text-text-light-primary dark:text-dark-primary">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold tracking-tight">HealthPortal</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<nav class="flex items-center gap-9">
+<a class="text-sm font-medium hover:text-primary dark:hover:text-primary" href="#about">About</a>
+<a class="text-sm font-medium hover:text-primary dark:hover:text-primary" href="#services">Services</a>
+<a class="text-sm font-medium hover:text-primary dark:hover:text-primary" href="#contact">Contact</a>
+</nav>
+<div class="flex gap-2">
+<button id="login-btn" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary/20 dark:bg-primary/30 text-primary text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/30 dark:hover:bg-primary/40">
+<span class="truncate">Login</span>
+</button>
+<button id="signup-btn" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90">
+<span class="truncate">Sign Up</span>
+</button>
+</div>
+</div>
+<button class="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<main class="flex-grow">
+<div class="flex flex-col items-center py-5">
+<div class="flex flex-col max-w-7xl flex-1 w-full px-4 sm:px-6 lg:px-8">
+<!-- HeroSection -->
+<section class="w-full py-10 md:py-20" id="hero">
+<div class="@container">
+<div class="@[480px]:p-4">
+<div class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-start justify-end px-4 pb-10 @[480px]:px-10" data-alt="Doctors collaborating in a modern medical facility" style='background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuC0Gxe3HHavfjVEWmaO_fAQbuA2rWd8krCCgI5xtaMQyH6tjVoEmx3e40-45aiFWBYFyJRIrMYNwUI3YOLmz6L3zhbR8Jh2r-6KdFQPxE2Eu3pyWx8jWU8DV5V8cwrlem3OMBNVg2cUB0Sw4_3S7WlkWMPKihuDONamjAYeBclbsUq0QP3KmFgtYsOIOxKUmLV_Xl2amfYwPXUz_1FbMK2_YRH8o3VNokjXRQdzX1zQQ9LDBFBiFmY3kxXxk9trYzHG0x9QHFCKgXo");'>
+<div class="flex flex-col gap-2 text-left">
+<h1 class="text-white text-4xl font-black leading-tight tracking-tight @[480px]:text-5xl">Quality Healthcare, Just a Click Away.</h1>
+<h2 class="text-white text-base font-normal leading-normal @[480px]:text-lg">Connect with trusted, verified doctors from the comfort of your home.</h2>
+</div>
+<div class="flex-wrap gap-3 flex">
+<a href="Patient_login.html" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base hover:bg-primary/90">
+<span class="truncate">I'm a Patient</span>
+</a>
+<a href="Doctor_login.html" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-background-light text-text-light-primary text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base hover:bg-background-light/90">
+<span class="truncate">I'm a Doctor</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works Section -->
+<section class="w-full py-10 md:py-20" id="how-it-works">
+<h2 class="text-3xl font-bold tracking-tight px-4 pb-6 pt-5 text-center">How It Works</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+<div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark p-6 flex-col text-center items-center">
+<div class="text-primary text-4xl p-3 bg-primary/20 rounded-full">
+<span class="material-symbols-outlined" style="font-size: 36px;">search</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-lg font-bold">1. Find a Doctor</h3>
+<p class="text-sm text-text-light-secondary dark:text-dark-secondary">Search our network of verified specialists and find the right one for you.</p>
+</div>
+</div>
+<div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark p-6 flex-col text-center items-center">
+<div class="text-primary text-4xl p-3 bg-primary/20 rounded-full">
+<span class="material-symbols-outlined" style="font-size: 36px;">calendar_add_on</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-lg font-bold">2. Book a Session</h3>
+<p class="text-sm text-text-light-secondary dark:text-dark-secondary">Choose a convenient time and book your virtual appointment instantly.</p>
+</div>
+</div>
+<div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark p-6 flex-col text-center items-center">
+<div class="text-primary text-4xl p-3 bg-primary/20 rounded-full">
+<span class="material-symbols-outlined" style="font-size: 36px;">video_chat</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-lg font-bold">3. Get Consultation</h3>
+<p class="text-sm text-text-light-secondary dark:text-dark-secondary">Connect with your doctor via secure video call for your consultation.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- About Us Section -->
+<section class="w-full py-10 md:py-20" id="about">
+<div class="p-4 bg-white dark:bg-background-dark rounded-xl border border-gray-200 dark:border-gray-700">
+<div class="flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="flex flex-[2_2_0px] flex-col gap-4 text-center md:text-left">
+<div class="flex flex-col gap-2">
+<p class="text-primary text-sm font-bold tracking-wider">ABOUT US</p>
+<h2 class="text-3xl font-bold tracking-tight">Making Healthcare Accessible for Everyone</h2>
+<p class="text-text-light-secondary dark:text-dark-secondary">Our mission is to make quality healthcare accessible and convenient for everyone, everywhere. We leverage technology to bridge the gap between patients and trusted medical professionals, ensuring a seamless and secure experience.</p>
+</div>
+<button class="flex min-w-[84px] max-w-fit cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-5 bg-primary/20 dark:bg-primary/30 text-primary text-sm font-bold mx-auto md:mx-0 hover:bg-primary/30 dark:hover:bg-primary/40">
+<span class="truncate">Learn More</span>
+</button>
+</div>
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg flex-1" data-alt="A friendly doctor smiling and looking at the camera" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAfYwA1jbQomNessJCYUG3Jsyr74VZR6VdI3TSiZyO5-xc8cfWfhIm7YVN-x7jBfHSOrrNYcF33upqsSdWXOE8DzGiTrepZX0CUGLsmIJCy0-UuG2S2JemgtNN7T0_qffgEp2NOIW3QQZo3AKZ19gmQO-MSKa5hVgqC9ypf_dm1xt0AQW3al4Kqk2asz0bN6tE2BKuXG2F8VwTk_CS8gzO8_E_OzqRglVHL_S5WgbwhI7upxoRAl43AwgK0xqq3N8EVF9LUVWo8YI4");'></div>
+</div>
+</div>
+</section>
+<!-- Services/Features Section -->
+<section class="w-full py-10 md:py-20" id="services">
+<div class="text-center">
+<p class="text-primary text-sm font-bold tracking-wider">OUR SERVICES</p>
+<h2 class="text-3xl font-bold tracking-tight mt-1">Features Designed for Your Well-being</h2>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 mt-8">
+<div class="flex flex-col gap-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark p-6">
+<div class="text-secondary">
+<span class="material-symbols-outlined text-4xl">verified_user</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-lg font-bold">Verified Doctors</h3>
+<p class="text-text-light-secondary dark:text-dark-secondary text-sm">Every doctor on our platform is board-certified and rigorously vetted for quality and experience.</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark p-6">
+<div class="text-secondary">
+<span class="material-symbols-outlined text-4xl">chat</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-lg font-bold">Secure Messaging</h3>
+<p class="text-text-light-secondary dark:text-dark-secondary text-sm">Communicate with your doctor securely before and after your consultation through our encrypted messaging.</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark p-6">
+<div class="text-secondary">
+<span class="material-symbols-outlined text-4xl">schedule</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-lg font-bold">24/7 Access</h3>
+<p class="text-text-light-secondary dark:text-dark-secondary text-sm">Book appointments and access your health records anytime, anywhere from your device.</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark p-6">
+<div class="text-secondary">
+<span class="material-symbols-outlined text-4xl">prescriptions</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-lg font-bold">Prescription Management</h3>
+<p class="text-text-light-secondary dark:text-dark-secondary text-sm">Receive digital prescriptions from your doctor and get them delivered from your local pharmacy.</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark p-6">
+<div class="text-secondary">
+<span class="material-symbols-outlined text-4xl">health_and_safety</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-lg font-bold">Specialist Access</h3>
+<p class="text-text-light-secondary dark:text-dark-secondary text-sm">Gain access to a wide range of specialists, from cardiologists to dermatologists, without a referral.</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark p-6">
+<div class="text-secondary">
+<span class="material-symbols-outlined text-4xl">lock</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-lg font-bold">Secure Data Handling</h3>
+<p class="text-text-light-secondary dark:text-dark-secondary text-sm">Your health information is kept private and secure with our HIPAA-compliant platform.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Us Section -->
+<section class="w-full py-10 md:py-20" id="contact">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+<div class="flex flex-col gap-4">
+<p class="text-primary text-sm font-bold tracking-wider">CONTACT US</p>
+<h2 class="text-3xl font-bold tracking-tight">Get in Touch With Us</h2>
+<p class="text-text-light-secondary dark:text-dark-secondary">Have a question or need support? Fill out the form or use our contact details below. We're here to help.</p>
+<div class="flex flex-col gap-4 mt-4 text-text-light-secondary dark:text-dark-secondary">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">mail</span>
+<span>support@healthportal.com</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">call</span>
+<span>(123) 456-7890</span>
+</div>
+</div>
+</div>
+<form class="space-y-4" id="contact-form">
+<div class="flex flex-col sm:flex-row gap-4">
+<div class="flex-1">
+<label class="block text-sm font-medium mb-1" for="name">Name</label>
+<input class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-background-light dark:bg-gray-800 focus:border-primary focus:ring-primary" id="name" name="from_name" placeholder="John Doe" type="text" required/>
+</div>
+<div class="flex-1">
+<label class="block text-sm font-medium mb-1" for="email">Email</label>
+<input class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-background-light dark:bg-gray-800 focus:border-primary focus:ring-primary" id="email" name="from_email" placeholder="john.doe@example.com" type="email" required/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium mb-1" for="subject">Subject</label>
+<input class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-background-light dark:bg-gray-800 focus:border-primary focus:ring-primary" id="subject" name="subject" placeholder="Question about services" type="text" required/>
+</div>
+<div>
+<label class="block text-sm font-medium mb-1" for="message">Message</label>
+<textarea class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-background-light dark:bg-gray-800 focus:border-primary focus:ring-primary" id="message" name="message" placeholder="Your message here..." rows="4" required></textarea>
+</div>
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold tracking-[0.015em] hover:bg-primary/90" type="submit">
+<span class="truncate">Submit Message</span>
+</button>
+<p id="contact-form-status" class="text-center text-sm font-medium"></p>
+</form>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-700 mt-10">
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="col-span-2 md:col-span-1">
+<div class="flex items-center gap-2">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold">HealthPortal</h2>
+</div>
+<p class="mt-4 text-sm text-text-light-secondary dark:text-dark-secondary">Your trusted partner in digital healthcare.</p>
+<div class="mt-4 px-2 py-1 rounded-md text-xs font-semibold bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 inline-block">
+              HIPAA Compliant
+            </div>
+</div>
+<div>
+<h3 class="text-sm font-semibold tracking-wider uppercase">Solutions</h3>
+<ul class="mt-4 space-y-2">
+<li><a class="text-base text-text-light-secondary dark:text-dark-secondary hover:text-primary" href="#">For Patients</a></li>
+<li><a class="text-base text-text-light-secondary dark:text-dark-secondary hover:text-primary" href="#">For Doctors</a></li>
+<li><a class="text-base text-text-light-secondary dark:text-dark-secondary hover:text-primary" href="#">For Hospitals</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold tracking-wider uppercase">Company</h3>
+<ul class="mt-4 space-y-2">
+<li><a class="text-base text-text-light-secondary dark:text-dark-secondary hover:text-primary" href="#">About</a></li>
+<li><a class="text-base text-text-light-secondary dark:text-dark-secondary hover:text-primary" href="#">Careers</a></li>
+<li><a class="text-base text-text-light-secondary dark:text-dark-secondary hover:text-primary" href="#">Press</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold tracking-wider uppercase">Legal</h3>
+<ul class="mt-4 space-y-2">
+<li><a class="text-base text-text-light-secondary dark:text-dark-secondary hover:text-primary" href="#">Privacy Policy</a></li>
+<li><a class="text-base text-text-light-secondary dark:text-dark-secondary hover:text-primary" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-8 border-t border-gray-200 dark:border-gray-700 pt-8 flex flex-col sm:flex-row items-center justify-between">
+<p class="text-sm text-text-light-secondary dark:text-dark-secondary">© 2024 HealthPortal, Inc. All rights reserved.</p>
+<div class="flex space-x-6 mt-4 sm:mt-0">
+<!-- Social media icons would go here -->
+</div>
+</div>
+</div>
+</footer>
+
+<!-- Role Selection Modal -->
+<div id="role-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white dark:bg-card-dark rounded-xl shadow-2xl w-full max-w-sm p-8 m-4 text-center">
+        <h2 id="modal-title" class="text-2xl font-bold text-text-light-primary dark:text-dark-primary mb-2">Continue As...</h2>
+        <p class="text-text-light-secondary dark:text-dark-secondary mb-6">Are you a patient or a doctor?</p>
+        <div class="space-y-4">
+            <a id="modal-patient-btn" href="#" class="w-full flex items-center justify-center gap-3 p-4 rounded-lg bg-primary text-white font-bold text-lg hover:bg-primary/90 transition-colors">
+                <span class="material-symbols-outlined">personal_injury</span>
+                <span>Patient</span>
+            </a>
+            <a id="modal-doctor-btn" href="#" class="w-full flex items-center justify-center gap-3 p-4 rounded-lg bg-secondary text-white font-bold text-lg hover:bg-secondary/90 transition-colors">
+                <span class="material-symbols-outlined">medical_services</span>
+                <span>Doctor</span>
+            </a>
+        </div>
+        <button id="modal-close-btn" class="absolute top-4 right-4 p-2 rounded-full text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+    </div>
+</div>
+
+<!-- EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const loginBtn = document.getElementById('login-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        const roleModal = document.getElementById('role-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalPatientBtn = document.getElementById('modal-patient-btn');
+        const modalDoctorBtn = document.getElementById('modal-doctor-btn');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+
+        let actionType = ''; // 'login' or 'signup'
+
+        const openModal = (type) => {
+            actionType = type;
+            modalTitle.textContent = type === 'login' ? 'Login As...' : 'Sign Up As...';
+            roleModal.classList.remove('hidden');
+        };
+
+        const closeModal = () => {
+            roleModal.classList.add('hidden');
+        };
+
+        loginBtn.addEventListener('click', () => openModal('login'));
+        signupBtn.addEventListener('click', () => openModal('signup'));
+
+        modalPatientBtn.addEventListener('click', () => {
+            window.location.href = actionType === 'login' ? 'Patient_login.html' : 'Patient_registration.html';
+        });
+
+        modalDoctorBtn.addEventListener('click', () => {
+            window.location.href = actionType === 'login' ? 'Doctor_login.html' : 'Doctor_registration.html';
+        });
+
+        modalCloseBtn.addEventListener('click', closeModal);
+        roleModal.addEventListener('click', (e) => {
+            if (e.target === roleModal) closeModal();
+        });
+    });
+
+    // EmailJS Contact Form Handler
+    (function() {
+        // Replace with your actual EmailJS User ID (Public Key)
+        emailjs.init("fKSzCWCNmFfDSuFq2"); 
+    })();
+
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const form = this;
+        const statusMessage = document.getElementById('contact-form-status');
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        // Replace with your actual Service ID and Template ID
+        const serviceID = 'service_p5hyh0t';
+        const templateID = 'template_v2jqjq8';
+
+        submitButton.disabled = true;
+        statusMessage.textContent = 'Sending...';
+
+        emailjs.sendForm(serviceID, templateID, this)
+            .then(() => {
+                statusMessage.textContent = 'Message sent successfully!';
+                statusMessage.style.color = 'green';
+                form.reset();
+            }, (err) => {
+                statusMessage.textContent = 'Failed to send message. Please try again.';
+                statusMessage.style.color = 'red';
+            }).finally(() => {
+                submitButton.disabled = false;
+            });
+    });
+</script>
+</div>
+</body></html>

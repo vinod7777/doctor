@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HealthConsult - Sign In</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#137fec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#333333] dark:text-slate-200">
+<div class="relative flex min-h-screen w-full flex-col items-center justify-center bg-background-light dark:bg-background-dark p-4 md:p-6">
+<!-- Main Login Card -->
+<div class="w-full max-w-md space-y-8">
+<!-- Header -->
+<div class="flex flex-col items-center text-center">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z"></path>
+</svg>
+</div>
+<h1 class="text-[#0d141b] dark:text-slate-50 text-2xl font-bold">HealthConsult</h1>
+</div>
+</div>
+<!-- Page Heading -->
+<div class="text-center">
+<h2 class="text-[#0d141b] dark:text-slate-50 text-3xl font-black tracking-tighter">Sign In to Your Account</h2>
+<p class="mt-2 text-[#4c739a] dark:text-slate-400">Securely access your health records and consultations.</p>
+</div>
+<!-- Form -->
+<form id="patient-login-form" class="space-y-6">
+<!-- Error Message Display -->
+<div id="error-message" class="text-red-500 text-sm text-center"></div>
+
+<!-- Email Field -->
+<div>
+<label class="flex flex-col">
+<p class="text-[#0d141b] dark:text-slate-200 text-sm font-medium pb-2">Email or Username</p>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-[#4c739a] dark:text-slate-400">person</span>
+<input id="email" type="email" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#0d141b] dark:text-slate-50 focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#cfdbe7] dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:border-primary dark:focus:border-primary h-12 placeholder:text-[#4c739a] dark:placeholder:text-slate-500 pl-10 pr-4 text-base" placeholder="Enter your email or username" required value=""/>
+</div>
+</label>
+</div>
+<!-- Password Field -->
+<div>
+<label class="flex flex-col">
+<p class="text-[#0d141b] dark:text-slate-200 text-sm font-medium pb-2">Password</p>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-[#4c739a] dark:text-slate-400">lock</span>
+<input id="password" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#0d141b] dark:text-slate-50 focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#cfdbe7] dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:border-primary dark:focus:border-primary h-12 placeholder:text-[#4c739a] dark:placeholder:text-slate-500 pl-10 pr-10 text-base" placeholder="Enter your password" type="password" required value=""/>
+<button aria-label="Toggle password visibility" class="absolute right-3 text-[#4c739a] dark:text-slate-400" type="button">
+<span class="material-symbols-outlined text-xl">visibility_off</span>
+</button>
+</div>
+</label>
+</div>
+<!-- Forgot Password Link -->
+<div class="flex justify-end">
+<a class="text-primary text-sm font-medium hover:underline" href="#">Forgot Password?</a>
+</div>
+<!-- Login Button -->
+<button type="submit" class="flex w-full min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary text-slate-50 text-base font-bold tracking-wide hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark transition-colors">
+<span>Login</span>
+</button>
+<!-- Security Message -->
+<div class="flex items-center justify-center gap-2 text-xs text-green-600 dark:text-green-500">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+<span>Your connection is secure</span>
+</div>
+</form>
+<!-- Sign Up Link -->
+<div class="text-center">
+<p class="text-sm text-[#4c739a] dark:text-slate-400">
+                    Don't have an account? <a class="font-bold text-primary hover:underline" href="Patient_registration.html">Sign Up</a>
+</p>
+</div>
+</div>
+<!-- Footer -->
+<footer class="absolute bottom-4 text-center text-xs text-slate-500 dark:text-slate-400 w-full">
+<p>© 2024 HealthConsult. All rights reserved.</p>
+<div class="mt-1">
+<a class="hover:underline" href="#">Privacy Policy</a>
+<span class="mx-2">·</span>
+<a class="hover:underline" href="#">Terms of Service</a>
+</div>
+</footer>
+
+<!-- Firebase Scripts -->
+<script type="module" src="firebase_config.js"></script>
+<script type="module" src="patient_login.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const passwordInput = document.getElementById('password');
+        const togglePasswordButton = passwordInput.nextElementSibling;
+        const toggleIcon = togglePasswordButton.querySelector('span');
+
+        togglePasswordButton.addEventListener('click', function () {
+            // Toggle the type attribute
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+
+            // Toggle the icon
+            if (type === 'password') {
+                toggleIcon.textContent = 'visibility_off';
+            } else {
+                toggleIcon.textContent = 'visibility';
+            }
+        });
+    });
+</script>
+
+</div>
+</body></html>

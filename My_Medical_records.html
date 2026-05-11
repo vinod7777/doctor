@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Medical Documents - HealthPortal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light-primary dark:text-dark-primary">
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+<header class="sticky top-0 z-50 w-full border-b border-border-light dark:border-border-dark bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+    <div class="container mx-auto px-4">
+        <div class="flex h-16 items-center justify-between">
+            <div class="flex items-center gap-8">
+                <div class="flex items-center gap-2 text-primary">
+                    <span class="material-symbols-outlined text-3xl">health_and_safety</span>
+                    <h2 class="text-xl font-bold leading-tight">HealthPortal</h2>
+                </div>
+                <nav class="hidden md:flex items-center gap-6">
+                    <a class="text-sm font-medium text-text-light-secondary dark:text-dark-secondary hover:text-primary dark:hover:text-primary" href="Patient_dashboard.html">Dashboard</a>
+                    <a class="text-sm font-medium text-text-light-secondary dark:text-dark-secondary hover:text-primary dark:hover:text-primary" href="My_Appointments_patient.html">Appointments</a>
+                    <a class="text-sm font-semibold text-primary" href="My_Medical_records.html">Records</a>
+                    <a class="text-sm font-medium text-text-light-secondary dark:text-dark-secondary hover:text-primary dark:hover:text-primary" href="find_doctor.html">Find a Doctor</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <!-- Notification Dropdown -->
+                <div class="relative">
+                    <button id="notifications-button" class="relative flex items-center justify-center rounded-full size-10 hover:bg-primary/10 dark:hover:bg-primary/20">
+                        <span class="material-symbols-outlined text-text-light-secondary dark:text-dark-secondary">notifications</span>
+                        <div id="notification-dot" class="absolute top-2 right-2 size-2 rounded-full bg-accent ring-2 ring-background-light dark:ring-background-dark hidden"></div>
+                    </button>
+                    <!-- Dropdown Panel -->
+                    <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-80 bg-card-light dark:bg-card-dark rounded-lg shadow-xl border border-border-light dark:border-border-dark z-20">
+                        <div class="p-4 border-b border-border-light dark:border-border-dark">
+                            <h3 class="font-semibold text-text-light-primary dark:text-dark-primary">Notifications</h3>
+                        </div>
+                        <div id="notification-list" class="p-2 max-h-96 overflow-y-auto"></div>
+                        <div id="no-notifications-message" class="p-4 text-center text-sm text-text-light-secondary dark:text-dark-secondary hidden"><p>No new notifications.</p></div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div id="profile-picture" class="size-10 rounded-full bg-cover bg-center" data-alt="Profile picture"></div>
+                    <button id="logout-button" class="p-2 rounded-full hover:bg-primary/10 dark:hover:bg-primary/20">
+                        <span class="material-symbols-outlined text-text-light-secondary dark:text-dark-secondary">logout</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="flex-grow">
+    <div class="container mx-auto px-4 py-8">
+        <div class="mb-6">
+            <h1 class="text-3xl md:text-4xl font-black leading-tight tracking-tight">My Medical Records</h1>
+            <p class="text-base text-text-light-secondary dark:text-dark-secondary mt-1">View and manage your uploaded documents.</p>
+        </div>
+
+        <!-- Sharing PIN Section -->
+        <div id="sharing-pin-card" class="mb-6 bg-primary/10 dark:bg-primary/20 p-6 rounded-xl border border-primary/20 flex flex-col items-center text-center" style="display: none;">
+            <h3 class="text-xl font-bold text-primary mb-2">Secure Sharing PIN</h3>
+            <p class="text-text-light-secondary dark:text-dark-secondary mb-4 max-w-md">Share this temporary PIN with your doctor to grant them access to your medical records. A new PIN is generated every 60 seconds.</p>
+            <div class="flex items-center gap-4">
+                <div class="bg-white dark:bg-background-dark p-4 rounded-lg shadow-inner">
+                    <p id="sharing-pin" class="text-4xl font-black tracking-widest text-primary">----</p>
+                </div>
+                <div id="pin-timer" class="flex items-center justify-center size-12 rounded-full border-2 border-primary/30 text-primary font-semibold">60s</div>
+            </div>
+        </div>
+
+        <div class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-border-light dark:border-border-dark overflow-hidden">
+            <div class="p-4 flex flex-wrap items-center justify-between gap-4">
+                <div class="relative flex-grow max-w-xs">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-light-secondary">search</span>
+                    <input id="search-input" type="text" placeholder="Search records..." class="w-full h-10 pl-10 pr-4 rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary">
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="bg-background-light dark:bg-background-dark">
+                        <tr>
+                            <th class="p-4 w-12 text-center"><input class="h-5 w-5 rounded border-border-light dark:border-border-dark bg-transparent text-primary focus:ring-primary" type="checkbox"/></th>
+                            <th class="p-4 text-sm font-semibold text-text-light-secondary dark:text-dark-secondary">Name</th>
+                            <th class="p-4 text-sm font-semibold text-text-light-secondary dark:text-dark-secondary">Document Type</th>
+                            <th class="p-4 text-sm font-semibold text-text-light-secondary dark:text-dark-secondary">Date Added</th>
+                            <th class="p-4 text-sm font-semibold text-text-light-secondary dark:text-dark-secondary text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="documents-table-body" class="divide-y divide-border-light dark:divide-border-dark">
+                        <!-- Template Row -->
+                        <tr id="document-row-template" style="display: none;">
+                            <td class="p-4 text-center"><input class="h-5 w-5 rounded border-border-light dark:border-border-dark bg-transparent text-primary focus:ring-primary" type="checkbox"/></td>
+                            <td class="doc-name p-4 text-sm font-medium">Document Name</td>
+                            <td class="p-4 text-sm"><span class="doc-type inline-block px-2 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary">Document Type</span></td>
+                            <td class="doc-date p-4 text-sm text-text-light-secondary dark:text-dark-secondary"></td>
+                            <td class="p-4 text-right">
+                                <a href="#" target="_blank" class="view-doc-link p-2 rounded-full text-text-light-secondary dark:text-dark-secondary hover:bg-background-light dark:hover:bg-background-dark"><span class="material-symbols-outlined">visibility</span></a>
+                            </td>
+                        </tr>
+                        <!-- Empty State Row -->
+                        <tr id="no-documents-message" style="display: none;">
+                            <td colspan="5" class="text-center py-16 text-text-light-secondary dark:text-dark-secondary">
+                                <div class="flex flex-col items-center justify-center gap-4">
+                                    <span class="material-symbols-outlined text-6xl">folder_off</span>
+                                    <p class="text-lg font-semibold">No medical documents found</p>
+                                    <p class="max-w-xs">It looks like you haven't uploaded any documents yet. Go to your dashboard to upload your first record.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+</div>
+<!-- Firebase Scripts -->
+<script type="module" src="firebase_config.js"></script>
+<script type="module" src="my_medical_records.js"></script>
+<script type="module" src="patient_notifications.js"></script>
+</body>
+</html>

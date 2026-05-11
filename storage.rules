@@ -1,0 +1,46 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function hasRole(role) {
+      return isSignedIn() && request.auth.token.role == role;
+    }
+
+    function isAdmin() {
+      return hasRole('admin');
+    }
+
+    function isDoctor() {
+      return hasRole('doctor');
+    }
+
+    function isPatient() {
+      return hasRole('patient');
+    }
+
+    match /medical_records/{patientId}/{allPaths=**} {
+      allow read: if isSignedIn() && (
+        request.auth.uid == patientId || isDoctor() || isAdmin()
+      );
+      allow write: if isSignedIn() && (
+        request.auth.uid == patientId || isDoctor() || isAdmin()
+      );
+    }
+
+    match /appointment_attachments/{patientId}/{allPaths=**} {
+      allow read: if isSignedIn() && (
+        request.auth.uid == patientId || isDoctor() || isAdmin()
+      );
+      allow write: if isSignedIn() && (
+        request.auth.uid == patientId || isDoctor() || isAdmin()
+      );
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

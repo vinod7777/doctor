@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Patient Medical Records - HealthPortal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3A86FF",
+                        "secondary": "#2EC4B6",
+                        "accent": "#FF9F1C",
+                        "neutral-text": "#212529",
+                        "neutral-subtext": "#6C757D",
+                        "background-light": "#F8F9FA",
+                        "background-dark": "#101922",
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#1A2836",
+                        "border-light": "#E9ECEF",
+                        "border-dark": "#2C3A48",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+<div class="flex h-screen w-full">
+<!-- SideNavBar -->
+<aside class="w-64 flex-shrink-0 bg-white dark:bg-neutral-900/50 p-4 flex flex-col justify-between border-r border-slate-200 dark:border-slate-800">
+<div class="flex flex-col gap-4">
+<div class="flex gap-3 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="A portrait of Dr. Evelyn Reed" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDCHYu1xXSGN77eyEWcPGDm-XO83FkhhdwS6q5ZXQwHgnV9ebizfr8w0KYJ3ipeLweWILdBgPYWHgl2OUdK6wuke6-DPp5ht6bqG1-kjbrM3IgxTWNIffBSHxCw8bfjNI37y74KMzdHkcqk43oCG3Qs23I-m8IeQ5bhrUjY5KG6rCF_8zKfvhJ38SBenMM2ZMpqX7CpDZftj1KCTEDUeAWswsFVJ7w83YbEIdoqZwwdqZV88V2yqP05xFFxpnLFVO6jLShoVpP3Fdo");'></div>
+<div class="flex flex-col">
+<h1 id="doctor-name" class="text-neutral-text dark:text-slate-100 text-base font-medium leading-normal">Loading...</h1>
+<p class="text-neutral-subtext dark:text-slate-400 text-sm font-normal leading-normal">Doctor</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 mt-6">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral-subtext dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="Doctor_dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary" href="Patient_Records_Management_doctor.html">
+<span class="material-symbols-outlined">group</span>
+<p class="text-sm font-medium leading-normal">Patients</p>
+</a>
+
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral-subtext dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="Consultation_History_doctor.html">
+<span class="material-symbols-outlined">history</span>
+<p class="text-sm font-medium leading-normal">History</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral-subtext dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="Doctor_settings.html">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<a id="logout-button" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-neutral-subtext dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="Doctor_login.html">
+<span class="material-symbols-outlined">logout</span>
+<p class="text-sm font-medium leading-normal">Logout</p>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-y-auto">
+	<div class="p-8">
+		<!-- PageHeading -->
+		<div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+			<div class="flex flex-col gap-1">
+				<p class="text-3xl font-bold tracking-tight">Patient Medical Records</p>
+				<p class="text-slate-500 dark:text-slate-400">Access and manage patient medical histories and documents.</p>
+			</div>
+			
+		</div>
+		<!-- Search and Filter Panel -->
+		<div class="mb-6 rounded-lg border border-border-light dark:border-border-dark bg-container-light dark:bg-container-dark p-4">
+			<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+				<!-- SearchBar -->
+				<label class="flex flex-col col-span-1 md:col-span-2 lg:col-span-2">
+					<span class="text-sm font-medium mb-1.5">Search by Name or ID</span>
+					<div class="relative flex w-full items-stretch">
+						<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">search</span>
+						<input id="search-input" class="form-input h-10 w-full flex-1 rounded-lg border border-border-light bg-card-light dark:border-border-dark dark:bg-card-dark pl-10 text-sm placeholder:text-slate-500 focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="e.g., John Doe or PID-12345" value="" />
+					</div>
+				</label>
+				<!-- Chips / Filters -->
+				<div class="relative flex flex-col">
+					<span class="text-sm font-medium mb-1.5">Status</span>
+					<select id="status-filter" class="form-select h-10 w-full appearance-none rounded-lg border border-border-light bg-card-light dark:border-border-dark dark:bg-card-dark px-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20">
+						<option value="all">All Statuses</option>
+						<option value="active">Active</option>
+						<option value="inactive">Inactive</option>
+					</select>
+					<span class="material-symbols-outlined pointer-events-none absolute right-3 top-9 text-lg text-slate-500">expand_more</span>
+				</div>
+				<div class="relative flex flex-col">
+					<span class="text-sm font-medium mb-1.5">Date Range</span>
+					<select id="date-filter" class="form-select h-10 w-full appearance-none rounded-lg border border-border-light bg-card-light dark:border-border-dark dark:bg-card-dark px-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20">
+						<option value="all">All Time</option>
+						<option value="7">Last 7 days</option>
+						<option value="30">Last 30 days</option>
+						<option value="90">Last 90 days</option>
+					</select>
+					<span class="material-symbols-outlined pointer-events-none absolute right-3 top-9 text-lg text-slate-500">expand_more</span>
+				</div>
+			</div>
+		</div>
+		<!-- Patient Record Table -->
+		<div class="overflow-hidden rounded-lg border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark">
+			<div class="overflow-x-auto">
+				<table class="min-w-full text-sm">
+					<thead class="bg-background-light dark:bg-background-dark">
+						<tr>
+							<th class="px-6 py-3 text-left font-semibold tracking-wider text-slate-600 dark:text-slate-300" scope="col">Patient Name</th>
+							<th class="px-6 py-3 text-left font-semibold tracking-wider text-slate-600 dark:text-slate-300" scope="col">Contact</th>
+							<th class="px-6 py-3 text-left font-semibold tracking-wider text-slate-600 dark:text-slate-300" scope="col">Status</th>
+							<th class="px-6 py-3 text-left font-semibold tracking-wider text-slate-600 dark:text-slate-300" scope="col">Documents</th>
+							<th class="px-6 py-3 text-left font-semibold tracking-wider text-slate-600 dark:text-slate-300" scope="col">Date Joined</th>
+						</tr>
+					</thead>
+					<tbody id="patient-table-body" class="divide-y divide-border-light dark:divide-border-dark">
+						<!-- Template Row -->
+						<tr id="patient-row-template" style="display: none;">
+							<td class="whitespace-nowrap px-6 py-4">
+								<div class="patient-name font-medium">Patient Name</div>
+								<div class="patient-id text-xs text-slate-500 dark:text-slate-400">ID:</div>
+							</td>
+							<td class="patient-email whitespace-nowrap px-6 py-4 text-slate-600 dark:text-slate-300">email@example.com</td>
+							<td class="whitespace-nowrap px-6 py-4">
+								<span class="inline-flex items-center rounded-full bg-green-100 dark:bg-green-900/50 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:text-green-200">Active</span>
+							</td>
+							<td class="patient-documents-status whitespace-nowrap px-6 py-4 text-slate-600 dark:text-slate-300">
+								<!-- Icon will be inserted here by JS -->
+							</td>
+							<td class="patient-joined-date whitespace-nowrap px-6 py-4 text-slate-600 dark:text-slate-300">2023-10-26</td>
+						</tr>
+						<!-- Empty State Row -->
+						<tr id="no-patients-message" style="display: none;">
+							<td colspan="5" class="text-center py-10 text-slate-500 dark:text-slate-400">
+								You do not have any patients yet.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- Pagination Controls -->
+			<div class="flex items-center justify-between border-t border-border-light dark:border-border-dark px-6 py-3">
+				<p class="text-sm text-slate-600 dark:text-slate-300">Showing <span class="font-semibold">1</span> to <span class="font-semibold">4</span> of <span class="font-semibold">27</span> results</p>
+				<div class="flex items-center gap-2">
+					<button class="flex h-8 items-center justify-center gap-2 rounded-md border border-border-light dark:border-border-dark px-3 text-sm font-medium hover:bg-primary/10">Previous</button>
+					<button class="flex h-8 items-center justify-center gap-2 rounded-md border border-border-light dark:border-border-dark px-3 text-sm font-medium hover:bg-primary/10">Next</button>
+				</div>
+            </div>
+        </div>
+	</div>
+</main>
+
+<!-- Document Viewer Modal -->
+<div id="document-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div id="document-modal-content" class="bg-card-light dark:bg-card-dark rounded-xl shadow-2xl w-full max-w-2xl m-4 transform scale-95 transition-transform duration-300">
+        <div class="flex justify-between items-center p-4 border-b border-border-light dark:border-border-dark">
+            <h2 id="modal-patient-name" class="text-xl font-bold">Patient Documents</h2>
+            <button id="close-document-modal" class="p-2 rounded-full hover:bg-primary/10">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div id="document-list" class="p-6 max-h-[60vh] overflow-y-auto space-y-3">
+            <!-- Document items will be inserted here -->
+        </div>
+        <!-- Template for a document item -->
+        <template id="document-item-template">
+            <div class="flex items-center justify-between p-3 rounded-lg bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-secondary">description</span>
+                    <div>
+                        <p class="document-name font-semibold text-sm">Document Name</p>
+                        <p class="document-details text-xs text-slate-500 dark:text-slate-400">Type - Uploaded on Date</p>
+                    </div>
+                </div>
+                <a href="#" target="_blank" class="view-link flex items-center justify-center h-8 w-8 rounded-md hover:bg-primary/10" title="View Document"><span class="material-symbols-outlined text-lg">visibility</span></a>
+            </div>
+        </template>
+    </div>
+</div>
+
+<!-- PIN Entry Modal -->
+<div id="pin-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-black bg-opacity-60 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div id="pin-modal-content" class="bg-card-light dark:bg-card-dark rounded-xl shadow-2xl w-full max-w-sm m-4 transform scale-95 transition-transform duration-300">
+        <div class="p-6 text-center">
+            <h2 class="text-xl font-bold mb-2">Patient Authorization Required</h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Please enter the 4-digit PIN provided by the patient to access their records.</p>
+            <form id="pin-form">
+                <input id="pin-input" type="text" maxlength="4" class="w-40 h-16 text-center text-3xl font-bold tracking-[0.5em] rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary" placeholder="----" required>
+                <p id="pin-error-message" class="text-red-500 text-sm mt-2 h-4"></p>
+                <div class="mt-4 flex gap-3 justify-center">
+                    <button type="button" id="cancel-pin-btn" class="flex-1 h-10 px-4 rounded-lg border border-border-light dark:border-border-dark text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Cancel</button>
+                    <button type="submit" id="submit-pin-btn" class="flex-1 h-10 px-4 rounded-lg bg-primary text-white text-sm font-bold hover:bg-primary/90">Verify PIN</button>
+                </div>
+            </form>
+        </div>
+        <button id="close-pin-modal" class="absolute top-2 right-2 p-2 rounded-full hover:bg-primary/10">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+    </div>
+</div>
+
+
+<!-- Firebase Scripts -->
+<script type="module" src="firebase_config.js"></script>
+<script type="module" src="patient_records.js"></script>
+</body></html>

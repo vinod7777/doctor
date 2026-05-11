@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Doctor Portal Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#2D6A9D",
+            "secondary": "#49C5B6",
+            "background-light": "#F4F7F9",
+            "background-dark": "#101922",
+            "text-light": "#333333",
+            "text-dark": "#E0E0E0",
+            "card-light": "#FFFFFF",
+            "card-dark": "#182533",
+            "border-light": "#CFDBE7",
+            "border-dark": "#334155",
+            "placeholder-light": "#6b7280",
+            "placeholder-dark": "#9ca3af",
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+<div class="flex flex-col min-h-screen">
+<header class="absolute top-0 left-0 w-full p-4 sm:p-6 lg:p-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">health_and_safety</span>
+<span class="text-xl font-bold text-primary">HealthConnect</span>
+</div>
+</header>
+<main class="flex flex-1 items-center justify-center">
+<div class="container mx-auto p-4">
+<div class="flex flex-col lg:flex-row w-full max-w-5xl mx-auto overflow-hidden bg-card-light dark:bg-card-dark rounded-xl shadow-lg">
+<div class="w-full lg:w-1/2 p-8 sm:p-12 flex flex-col justify-center">
+<div class="w-full max-w-md mx-auto">
+<div class="mb-8 text-left">
+<h1 class="text-3xl font-black text-gray-900 dark:text-white leading-tight tracking-tight">Welcome Back, Doctor</h1>
+<p class="mt-2 text-base font-normal text-gray-600 dark:text-gray-400">Securely access your dashboard.</p>
+</div>
+<form id="doctor-login-form" class="space-y-6">
+<div id="error-message" class="text-red-500 text-sm text-center"></div>
+<div>
+<label class="flex flex-col">
+<p class="text-sm font-medium leading-normal pb-2 dark:text-gray-300">Email Address / Username</p>
+<div class="flex w-full flex-1 items-stretch rounded-lg">
+<span class="flex items-center justify-center pl-4 pr-2 border border-r-0 border-border-light dark:border-border-dark bg-white dark:bg-card-dark rounded-l-lg">
+<span class="material-symbols-outlined text-gray-400">person</span>
+</span>
+<input id="email" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-l-0 border-border-light dark:border-border-dark bg-white dark:bg-card-dark h-12 placeholder:text-placeholder-light dark:placeholder:text-placeholder-dark px-3 rounded-r-lg text-base font-normal leading-normal" placeholder="Enter your email or username" type="email" required value=""/>
+</div>
+</label>
+</div>
+<div>
+<label class="flex flex-col">
+<p class="text-sm font-medium leading-normal pb-2 dark:text-gray-300">Password</p>
+<div class="flex w-full flex-1 items-stretch rounded-lg">
+<span class="flex items-center justify-center pl-4 pr-2 border border-r-0 border-border-light dark:border-border-dark bg-white dark:bg-card-dark rounded-l-lg">
+<span class="material-symbols-outlined text-gray-400">lock</span>
+</span>
+<input id="password" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-l-0 border-border-light dark:border-border-dark bg-white dark:bg-card-dark h-12 placeholder:text-placeholder-light dark:placeholder:text-placeholder-dark px-3 rounded-r-lg text-base font-normal leading-normal" placeholder="Enter your password" type="password" required value=""/>
+</div>
+</label>
+</div>
+<div class="text-right">
+<a class="text-sm font-medium text-primary hover:underline" href="#">Forgot Password?</a>
+</div>
+<div>
+<button type="submit" class="flex min-w-[84px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors duration-200">
+<span class="truncate">Log In</span>
+</button>
+</div>
+<div class="text-center">
+<p class="text-sm text-gray-600 dark:text-gray-400">
+                    Don't have an account? <a class="font-medium text-secondary hover:underline" href="Doctor_registration.html">Register here</a>
+</p>
+</div>
+</form>
+</div>
+</div>
+<div class="hidden lg:block lg:w-1/2">
+<div class="w-full h-full bg-cover bg-center" data-alt="A female doctor in a white coat using a laptop, representing modern healthcare technology." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDnFSSo0iJSaLHn7HFURJFZgj5IHJ6_tELNgydjwFcNTTJWsxpZwAvDu9uQ93eCKw8vY0PLoiqYSis816SKS4-8w_uKTQoDXDD6nX1EuGBRxOXSj8weK5Iw0jdf2CQ8-nIoLq4HhWwwMAP6YoZFKEaYno81kaJs8Uvgi-QZrYQp45HC5AYptyOLvrclQA0HZwvUtEFURVv1krF-LdAD7NoPYeVga7dD4i4po9kSdjAQeINHfD50ZttjKb3y3FKctWgy0vQQWTs-ljo");'>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="w-full py-6 px-4 sm:px-6 lg:px-8">
+<div class="container mx-auto text-center text-gray-500 dark:text-gray-400 text-sm">
+<a class="hover:underline mx-2" href="#">Help</a>
+<span class="mx-1">·</span>
+<a class="hover:underline mx-2" href="#">Terms of Service</a>
+<span class="mx-1">·</span>
+<a class="hover:underline mx-2" href="#">Privacy Policy</a>
+</div>
+</footer>
+
+<!-- Firebase Scripts -->
+<script type="module" src="firebase_config.js"></script>
+<script type="module" src="doctor_login.js"></script>
+</div>
+</body></html>

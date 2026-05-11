@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Appointments - HealthPortal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3A86FF",
+                        "secondary": "#43AA8B",
+                        "accent": "#F94144",
+                        "background-light": "#F4F7FA",
+                        "background-dark": "#101922",
+                        "text-light-primary": "#212529",
+                        "text-light-secondary": "#6C757D",
+                        "text-dark-primary": "#F4F7FA",
+                        "text-dark-secondary": "#9DA7B2",
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#1A2836",
+                        "border-light": "#E9ECEF",
+                        "border-dark": "#2C3A48",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light-primary dark:text-dark-primary">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="sticky top-0 z-40 w-full border-b border-border-light dark:border-border-dark bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+<div class="container mx-auto px-4">
+<div class="flex h-16 items-center justify-between">
+<div class="flex items-center gap-8">
+<a id="app-logo-link" href="index.html" class="flex items-center gap-2 text-primary cursor-pointer">
+<span class="material-symbols-outlined text-3xl">health_and_safety</span>
+<h2 class="text-xl font-bold leading-tight">HealthPortal</h2>
+</a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium text-text-light-secondary dark:text-dark-secondary hover:text-primary dark:hover:text-primary" href="Patient_dashboard.html">Dashboard</a>
+<a class="text-sm font-semibold text-primary" href="My_Appointments_patient.html">Appointments</a>
+<a class="text-sm font-medium text-text-light-secondary dark:text-dark-secondary hover:text-primary dark:hover:text-primary" href="My_Medical_records.html">Records</a>
+<a class="text-sm font-medium text-text-light-secondary dark:text-dark-secondary hover:text-primary dark:hover:text-primary" href="find_doctor.html">Find a Doctor</a>
+</nav>
+</div>
+<div class="flex items-center gap-2">
+<div class="relative">
+<button id="notifications-button" class="relative flex items-center justify-center rounded-full size-10 hover:bg-primary/10 dark:hover:bg-primary/20">
+<span class="material-symbols-outlined text-text-light-secondary dark:text-dark-secondary">notifications</span>
+<div id="notification-dot" class="absolute top-2 right-2 size-2 rounded-full bg-accent ring-2 ring-background-light dark:ring-background-dark hidden"></div>
+</button>
+
+<div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-80 bg-card-light dark:bg-card-dark rounded-lg shadow-xl border border-border-light dark:border-border-dark z-20">
+<div class="p-4 border-b border-border-light dark:border-border-dark">
+<h3 class="font-semibold text-text-light-primary dark:text-dark-primary">Notifications</h3>
+</div>
+<div id="notification-list" class="p-2 max-h-96 overflow-y-auto"></div>
+<div id="no-notifications-message" class="p-4 text-center text-sm text-text-light-secondary dark:text-dark-secondary hidden"><p>No new notifications.</p></div>
+</div>
+</div>
+<div id="profile-picture" class="size-10 rounded-full bg-cover bg-center" data-alt="Profile picture"></div>
+<div class="relative group">
+<button id="logout-button" class="p-2 rounded-full hover:bg-primary/10">
+<span class="material-symbols-outlined text-text-light-secondary dark:text-dark-secondary">logout</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
+<div class="mx-auto flex max-w-4xl flex-col gap-6">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="mb-8 text-center md:text-left">
+<h1 class="text-3xl md:text-4xl font-black leading-tight tracking-tight">My Appointments</h1>
+<p class="text-base text-text-light-secondary dark:text-dark-secondary mt-2">View and manage your upcoming and past consultations.</p>
+</div>
+</div>
+<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+<div class="w-full sm:max-w-xs">
+<label class="flex flex-col h-12 w-full">
+<div class="relative flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-gray-500 dark:text-gray-400 flex border-none bg-white dark:bg-background-dark/50 items-center justify-center pl-4 rounded-l-lg border-r-0 border border-gray-200 dark:border-gray-700">
+<span class="material-symbols-outlined" style="font-size: 24px;">search</span>
+</div>
+<input id="search-input" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark/50 h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 px-4 border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search by doctor's name" value=""/>
+</div>
+</label>
+</div>
+</div>
+<div class="w-full">
+<div class="border-b border-gray-200 dark:border-gray-700">
+<div class="flex gap-8">
+<a id="upcoming-tab" class="flex flex-col items-center justify-center border-b-[3px] border-b-primary pb-3 pt-4 cursor-pointer">
+<p class="tab-text text-sm font-bold leading-normal tracking-[0.015em] text-primary">Upcoming</p>
+</a>
+<a id="past-tab" class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent pb-3 pt-4 cursor-pointer">
+<p class="tab-text text-sm font-bold leading-normal tracking-[0.015em] text-text-light-secondary dark:text-dark-secondary hover:text-primary">Past</p>
+</a>
+<a id="missed-tab" class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent pb-3 pt-4 cursor-pointer">
+<p class="tab-text text-sm font-bold leading-normal tracking-[0.015em] text-text-light-secondary dark:text-dark-secondary hover:text-primary">Missed</p>
+</a>
+</div>
+</div>
+</div>
+<div id="appointments-container" class="flex flex-col gap-4">
+<!-- APPOINTMENT CARD TEMPLATE -->
+<div id="appointment-card-template" class="flex flex-col sm:flex-row items-stretch gap-4 rounded-xl bg-card-light dark:bg-card-dark p-4 shadow-sm border border-border-light dark:border-border-dark" style="display: none;">
+<div class="flex-shrink-0">
+<div class="doctor-avatar size-24 sm:size-28 bg-center bg-no-repeat aspect-square bg-cover rounded-full mx-auto"></div>
+</div>
+<div class="flex flex-1 flex-col justify-between gap-4 text-center sm:text-left">
+<div class="flex flex-col gap-1">
+<div class="status-badge inline-flex items-center justify-center sm:justify-start gap-2 text-xs font-semibold py-1 px-2.5 rounded-full w-fit mx-auto sm:mx-0">
+<span class="status-icon material-symbols-outlined" style="font-size: 14px;"></span>
+ Status
+</div>
+<p class="doctor-name text-lg font-bold leading-tight text-text-light-primary dark:text-dark-primary">Doctor Name</p>
+<p class="doctor-specialization text-sm font-normal leading-normal text-text-light-secondary dark:text-dark-secondary">Specialization</p>
+<p class="appointment-datetime text-sm font-medium leading-normal text-text-light-primary dark:text-dark-primary pt-2">Date and Time</p>
+</div>
+<div class="flex flex-wrap justify-center sm:justify-start gap-2">
+<a href="#" class="join-call-btn flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 flex-row-reverse bg-secondary text-white pr-3 gap-2 text-sm font-bold leading-normal hover:bg-secondary/90">
+<span class="material-symbols-outlined">videocam</span>
+<span class="truncate">Join Call</span>
+</a>
+<a href="#" class="reschedule-btn flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-background-light text-text-light-primary dark:bg-card-dark dark:text-dark-primary gap-2 text-sm font-medium leading-normal hover:bg-border-light dark:hover:bg-border-dark">
+<span class="truncate">Reschedule</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- EMPTY STATE EXAMPLE -->
+<div id="empty-state" style="display: none;">
+<div class="rounded-xl border-2 border-dashed border-border-light dark:border-border-dark p-12 text-center">
+<div class="mx-auto flex size-16 items-center justify-center rounded-full bg-primary/10">
+<span class="material-symbols-outlined text-primary" style="font-size: 32px;">calendar_month</span>
+</div>
+<h3 id="empty-state-text" class="mt-4 text-lg font-semibold text-text-light-primary dark:text-dark-primary">No appointments found</h3>
+<p class="mt-2 text-sm text-text-light-secondary dark:text-dark-secondary">Ready to connect with a doctor? Book your first consultation today.</p>
+<div class="mt-6">
+<button id="book-new-appointment-btn" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] mx-auto gap-2 hover:bg-primary/90">
+<span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+<span class="truncate">Book New Appointment</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+
+<!-- Firebase Scripts -->
+<script type="module" src="firebase_config.js"></script>
+<script type="module" src="my_appointments_patient.js"></script>
+<script type="module" src="patient_notifications.js"></script>
+</body></html>

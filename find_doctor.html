@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Find a Doctor - HealthPortal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3A86FF",
+                        "secondary": "#43AA8B",
+                        "accent": "#F94144",
+                        "background-light": "#F4F7FA",
+                        "background-dark": "#101922",
+                        "text-light-primary": "#212529",
+                        "text-light-secondary": "#6C757D",
+                        "text-dark-primary": "#F4F7FA",
+                        "text-dark-secondary": "#9DA7B2",
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#1A2836",
+                        "border-light": "#E9ECEF",
+                        "border-dark": "#2C3A48",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+        .modal-content {
+            transition: transform 0.25s ease;
+        }
+    </style>
+</head>
+
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light-primary dark:text-dark-primary">
+    <div class="relative flex h-auto min-h-screen w-full flex-col">
+        <header class="sticky top-0 z-40 w-full border-b border-border-light dark:border-border-dark bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <div class="flex h-16 items-center justify-between">
+                    <div class="flex items-center gap-8">
+                        <a id="app-logo-link" href="index.html" class="flex items-center gap-2 text-primary cursor-pointer">
+                            <span class="material-symbols-outlined text-3xl">health_and_safety</span>
+                            <h2 class="text-xl font-bold leading-tight">HealthPortal</h2>
+                        </a>
+                        <nav class="hidden md:flex items-center gap-6">
+                            <a class="text-sm font-medium text-text-light-secondary dark:text-dark-secondary hover:text-primary dark:hover:text-primary" href="Patient_dashboard.html">Dashboard</a>
+                            <a class="text-sm font-medium text-text-light-secondary dark:text-dark-secondary hover:text-primary dark:hover:text-primary" href="My_Appointments_patient.html">Appointments</a>
+                            <a class="text-sm font-medium text-text-light-secondary dark:text-dark-secondary hover:text-primary dark:hover:text-primary" href="My_Medical_records.html">Records</a>
+                            <a class="text-sm font-semibold text-primary" href="find_doctor.html">Find a Doctor</a>
+                        </nav>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <!-- Notification Dropdown -->
+                        <div class="relative">
+                            <button id="notifications-button" class="relative flex items-center justify-center rounded-full size-10 hover:bg-primary/10 dark:hover:bg-primary/20">
+                                <span class="material-symbols-outlined text-text-light-secondary dark:text-dark-secondary">notifications</span>
+                                <div id="notification-dot" class="absolute top-2 right-2 size-2 rounded-full bg-accent ring-2 ring-background-light dark:ring-background-dark hidden"></div>
+                            </button>
+                            <!-- Dropdown Panel -->
+                            <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-80 bg-card-light dark:bg-card-dark rounded-lg shadow-xl border border-border-light dark:border-border-dark z-20">
+                                <div class="p-4 border-b border-border-light dark:border-border-dark">
+                                    <h3 class="font-semibold text-text-light-primary dark:text-dark-primary">Notifications</h3>
+                                </div>
+                                <div id="notification-list" class="p-2 max-h-96 overflow-y-auto"></div>
+                                <div id="no-notifications-message" class="p-4 text-center text-sm text-text-light-secondary dark:text-dark-secondary hidden"><p>No new notifications.</p></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div id="profile-picture" class="size-10 rounded-full bg-cover bg-center" data-alt="Profile picture"></div>
+                            <div class="relative group">
+                                <button id="logout-button" class="p-2 rounded-full hover:bg-primary/10">
+                                    <span class="material-symbols-outlined text-text-light-secondary dark:text-dark-secondary">logout</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="flex-grow">
+            <div class="container mx-auto px-4 py-8">
+                <!-- Page Heading -->
+                <div class="mb-8 text-center">
+                    <h1 class="text-3xl md:text-4xl font-black leading-tight tracking-tight">Find Your Doctor</h1>
+                    <p class="text-base text-text-light-secondary dark:text-dark-secondary mt-2 max-w-2xl mx-auto">Search our network of specialists and book your appointment in minutes.</p>
+                </div>
+
+                <!-- Search and Filters -->
+                <div class="mb-8 p-4 rounded-lg bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark flex flex-col md:flex-row gap-4">
+                    <div class="relative flex-grow">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-light-secondary">search</span>
+                        <input id="search-input" type="text" placeholder="Search by doctor's name or specialty..." class="w-full h-12 pl-10 pr-4 rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary">
+                    </div>
+                </div>
+
+                <!-- Doctor List -->
+                <div id="doctors-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Doctor Card Template -->
+                    <div id="doctor-card-template" class="hidden flex flex-col bg-card-light dark:bg-card-dark rounded-lg shadow-sm border border-border-light dark:border-border-dark overflow-hidden">
+                        <div class="doctor-avatar w-full h-48 bg-cover bg-center"></div>
+                        <div class="p-4 flex flex-col flex-grow">
+                            <h3 class="doctor-name text-lg font-bold">Doctor Name</h3>
+                            <p class="doctor-specialization text-sm text-primary font-medium">Specialization</p>
+                            <div class="flex-grow mt-2">
+                                <!-- Additional info like rating can go here -->
+                            </div>
+                            <button class="book-appointment-btn mt-4 w-full flex items-center justify-center gap-2 rounded-lg h-10 px-4 bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors">
+                                Book Appointment
+                            </button>
+                        </div>
+                    </div>
+                    <!-- End of Template -->
+                </div>
+                 <div id="no-doctors-message" class="hidden text-center py-16 text-text-light-secondary dark:text-dark-secondary">
+                    <p class="text-lg">No doctors found matching your criteria.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 opacity-0 pointer-events-none">
+        <div class="modal-content bg-card-light dark:bg-card-dark rounded-xl shadow-2xl w-full max-w-md p-6 m-4 transform scale-95">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Book Appointment</h2>
+                <button id="close-modal-btn" class="p-2 rounded-full hover:bg-background-light dark:hover:bg-background-dark">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div id="modal-body" class="space-y-4">
+                <div class="flex items-center gap-4">
+                    <div id="modal-doctor-avatar" class="size-16 rounded-full bg-cover bg-center flex-shrink-0"></div>
+                    <div>
+                        <h3 id="modal-doctor-name" class="text-lg font-bold">Doctor Name</h3>
+                        <p id="modal-doctor-specialization" class="text-sm text-primary font-medium">Specialization</p>
+                    </div>
+                </div>
+
+                <!-- Date Picker -->
+                <div>
+                    <label for="appointment-date" class="block text-sm font-medium mb-1">Select Date</label>
+                    <input type="date" id="appointment-date" class="w-full h-10 px-3 rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary">
+                </div>
+
+                <!-- Time Slots -->
+                <div id="time-input-container" class="hidden">
+                    <label for="appointment-time" class="block text-sm font-medium mb-1">Select Time</label>
+                    <input type="time" id="appointment-time" class="w-full h-10 px-3 rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary">
+                    <p id="time-availability-message" class="text-xs text-text-light-secondary dark:text-dark-secondary mt-1.5">Note: The doctor's availability for this exact time will be confirmed upon review.</p>
+                </div>
+
+                <!-- Chief Complaint -->
+                <div>
+                    <label for="chief-complaint" class="block text-sm font-medium mb-1">Reason for Visit (Chief Complaint)</label>
+                    <textarea id="chief-complaint" rows="3" placeholder="e.g., Annual check-up, headache..." class="w-full p-3 rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary"></textarea>
+                </div>
+
+                <!-- Document Upload Section -->
+                <div>
+                    <label class="block text-sm font-medium mb-2">Attach a Document (Optional)</label>
+                    <div class="flex justify-center gap-2 mb-3">
+                        <button id="fileUploadOptionBtn" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary text-white">Upload File</button>
+                        <button id="driveLinkOptionBtn" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200">Add Drive Link</button>
+                    </div>
+
+                    <!-- File Upload Input -->
+                    <div id="fileInputContainer">
+                        <input type="file" id="fileInput" class="block w-full text-sm text-text-light-secondary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 dark:file:bg-primary/20 dark:file:text-white dark:hover:file:bg-primary/30">
+                    </div>
+
+                    <!-- Drive Link Input -->
+                    <div id="driveLinkInputContainer" class="hidden">
+                        <input type="url" id="driveLinkInput" placeholder="Paste a shareable Google Drive link..." class="block w-full p-2 rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary">
+                    </div>
+
+                    <input type="hidden" id="uploadMethodInput" value="file">
+                </div>
+
+
+                <!-- Confirmation Button -->
+                <button id="confirm-booking-btn" class="w-full h-12 bg-secondary text-white font-bold rounded-lg hover:bg-secondary/90 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed">
+                    Confirm Booking
+                </button>
+                <div id="booking-message" class="text-center text-sm"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script type="module" src="firebase_config.js"></script>
+    <script type="module" src="find_doctor.js"></script>
+    <script type="module" src="patient_notifications.js"></script>
+</body>
+
+</html>
